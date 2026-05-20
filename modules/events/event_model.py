@@ -39,3 +39,17 @@ class EventModel:
         inserted = await events_collection.find_one({"_id": result.inserted_id})
 
         return EventModel._map_event(inserted)
+    
+    @staticmethod
+    async def delete(event_id:str, email:str) -> bool:
+        try:
+            
+            result = await events_collection.delete_one({
+                "_id": ObjectId(event_id),
+                "user_email": email
+            })
+
+            return result.deleted_count > 0
+        except Exception as e:
+            print(f"Error interno al borrar evento en MongoDB: {e}")
+            return False
