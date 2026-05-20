@@ -28,7 +28,9 @@ async def login(credentials: LoginRequest):
     access_token = create_access_token(data={"sub": user["email"],
                                              "name": user.get("name", ""),
                                              "surname": user.get("surname", ""),
-                                             "email": user.get("email", "")})
+                                             "email": user.get("email", ""),
+                                             "rol": user.get("rol", "empleado")
+                                             })
     
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -48,7 +50,8 @@ async def register(user_in:RegistrerRequest):
         "name" : user_in.name,
         "surname" : user_in.surname,
         "email" : user_in.email,
-        "hash_password": hash_password
+        "hash_password": hash_password,
+        "rol": user_in.rol
     }
 
     await AuthModel.create_user(user_data=user_dict)

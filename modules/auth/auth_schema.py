@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field
+from typing import Literal
 
 # Define los datos que viajan entre Angular y FastAPI.
 
@@ -17,3 +18,4 @@ class RegistrerRequest(BaseModel):
     surname:str = Field(..., min_length=3, max_length=50)
     email:EmailStr
     password:str = Field(..., min_length=6, max_length=72)
+    rol: Literal["admin", "empleado"] = "empleado"

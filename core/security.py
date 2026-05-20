@@ -26,6 +26,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict: # Depen
         email:str = payload.get("email")
         name: str = payload.get("name")
         surname:str = payload.get("surname")
+        rol:str = payload.get("rol", "empleado")
 
         if email is None:
             raise credentials_exception
@@ -33,7 +34,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict: # Depen
         return {
             "email": email,
             "name": name,
-            "surname": surname
+            "surname": surname,
+            "rol": rol
         }
     except jwt.ExpiredSignatureError:
         raise HTTPException(
