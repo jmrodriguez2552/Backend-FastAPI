@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from modules.auth import auth_controller
 from modules.tasks import task_controller
 from modules.events import event_controller
+from modules.manuals import manual_controller
 
 # python -m uvicorn main:app --reload para lanzar el servidor
 
@@ -29,6 +30,7 @@ app.add_middleware(
 app.include_router(auth_controller.router)
 app.include_router(task_controller.router)
 app.include_router(event_controller.router)
+app.include_router(manual_controller.router)
 
 
 
